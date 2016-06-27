@@ -30,6 +30,28 @@ t_block find_block ( t_block *last , size_t size ){
 	return (b);
 }
 
+/* Para splitar o bloco (alocação dinâmica) a struct é alterada
+
+struct s_block{
+	size_t size;
+	t_block next;
+	int free;
+	char data[1];
+};
+
+#define BLOCK_SIZE 12
+
+void split_block(t_block b, size_t s){
+	t_block new;
+	new = b->data + s;
+	new->size = b->size - s - BLOCK_SIZE;
+	new->next = b->next;
+	new->free = 1;
+	b->size = s;
+	b->next = new;
+}
+
+*/
 void *myMallocInit(size_t size){
 
 	p = sbrk(size);
